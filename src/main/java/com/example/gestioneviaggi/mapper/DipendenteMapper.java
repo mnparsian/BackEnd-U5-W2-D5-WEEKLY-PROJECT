@@ -3,7 +3,6 @@ package com.example.gestioneviaggi.mapper;
 import com.example.gestioneviaggi.dto.DipendenteDTO;
 import com.example.gestioneviaggi.model.Dipendente;
 import org.springframework.stereotype.Component;
-
 import java.util.stream.Collectors;
 
 @Component
@@ -17,7 +16,8 @@ public class DipendenteMapper {
     dipendenteDTO.setCognome(d.getCognome());
     dipendenteDTO.setEmail(d.getEmail());
 
-    dipendenteDTO.setListaPrenotazioni(d.getListaPrenotazioni());
+    dipendenteDTO.setPrenotazioniIds(
+        d.getListaPrenotazioni().stream().map(p -> p.getId()).collect(Collectors.toList()));
 
     return dipendenteDTO;
   }

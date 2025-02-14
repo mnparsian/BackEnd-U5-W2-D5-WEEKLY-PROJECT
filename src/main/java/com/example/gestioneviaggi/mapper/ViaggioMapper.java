@@ -2,7 +2,10 @@ package com.example.gestioneviaggi.mapper;
 
 import com.example.gestioneviaggi.dto.ViaggioDTO;
 import com.example.gestioneviaggi.model.Viaggio;
+import org.springframework.stereotype.Component;
+import java.util.stream.Collectors;
 
+@Component
 public class ViaggioMapper {
 
   // FOR GET
@@ -12,7 +15,10 @@ public class ViaggioMapper {
     viaggioDTO.setDestinazione(v.getDestinazione());
     viaggioDTO.setData(v.getData());
     viaggioDTO.setStato(v.getStato());
-    viaggioDTO.setListaPrenotazioni(v.getListaPrenotazioni());
+
+    viaggioDTO.setPrenotazioniIds(
+        v.getListaPrenotazioni().stream().map(p -> p.getId()).collect(Collectors.toList()));
+
     return viaggioDTO;
   }
 

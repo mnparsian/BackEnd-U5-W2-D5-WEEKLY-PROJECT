@@ -15,5 +15,5 @@ public class DipendenteDTO {
     private String nome;
     private String cognome;
     private String email;
-    private List<Prenotazione> listaPrenotazioni;
+    private List<Long> PrenotazioniIds;
 }
