@@ -6,4 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.io.DataInput;
 
 public interface DipendenteRepository extends JpaRepository<Dipendente,Long>
-{}
+{
+    public boolean existsByUsername(String username);
+    public boolean existsByEmail(String email);
+}
