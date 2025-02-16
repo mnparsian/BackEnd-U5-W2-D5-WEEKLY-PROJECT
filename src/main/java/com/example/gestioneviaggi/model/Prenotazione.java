@@ -20,4 +20,7 @@ public class Prenotazione {
 
     @Column(name = "dipendente_id", nullable = false)
     private Long dipendenteId;
+
+    @Column(length = 500)
+    private String note;
 }

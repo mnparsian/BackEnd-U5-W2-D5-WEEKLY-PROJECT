@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+
 @Entity(name = "viaggi")
 public class Viaggio {
     @Id
@@ -24,12 +24,15 @@ public class Viaggio {
     private TipoStato stato;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "viaggio_id")
-    private List<Prenotazione> listaPrenotazioni;
+    private List<Prenotazione> listaPrenotazioni =  new ArrayList<>();
 
     public Viaggio(String destinazione, LocalDate data, TipoStato stato) {
         this.destinazione = destinazione;
         this.data = data;
         this.stato = stato;
+        this.listaPrenotazioni = new ArrayList<>();
+    }
+    public Viaggio() {
         this.listaPrenotazioni = new ArrayList<>();
     }
 }

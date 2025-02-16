@@ -15,6 +15,7 @@ public class DipendenteMapper {
     dipendenteDTO.setNome(d.getNome());
     dipendenteDTO.setCognome(d.getCognome());
     dipendenteDTO.setEmail(d.getEmail());
+    dipendenteDTO.setImageUrl(d.getImageUrl());
 
     dipendenteDTO.setPrenotazioniIds(
         d.getListaPrenotazioni().stream().map(p -> p.getId()).collect(Collectors.toList()));
@@ -29,6 +30,7 @@ public class DipendenteMapper {
     dipendente.setNome(dto.getNome());
     dipendente.setCognome(dto.getCognome());
     dipendente.setEmail(dto.getEmail());
+    dipendente.setImageUrl(dto.getImageUrl());
     return dipendente;
   }
 }

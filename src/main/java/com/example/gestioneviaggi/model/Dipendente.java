@@ -24,7 +24,9 @@ public class Dipendente {
     private String email;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "dipendente_id")
-    private List<Prenotazione> listaPrenotazioni;
+    private List<Prenotazione> listaPrenotazioni = new ArrayList<>();
+    @Column(name = "image_url")
+    private String imageUrl;
 
     public Dipendente(String username, String nome, String cognome, String email) {
         this.username = username;
@@ -33,4 +35,5 @@ public class Dipendente {
         this.email = email;
         this.listaPrenotazioni = new ArrayList<>();
     }
+
 }

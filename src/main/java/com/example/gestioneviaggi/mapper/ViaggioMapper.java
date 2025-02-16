@@ -3,6 +3,8 @@ package com.example.gestioneviaggi.mapper;
 import com.example.gestioneviaggi.dto.ViaggioDTO;
 import com.example.gestioneviaggi.model.Viaggio;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 @Component
@@ -17,7 +19,9 @@ public class ViaggioMapper {
     viaggioDTO.setStato(v.getStato());
 
     viaggioDTO.setPrenotazioniIds(
-        v.getListaPrenotazioni().stream().map(p -> p.getId()).collect(Collectors.toList()));
+        v.getListaPrenotazioni() != null
+            ? v.getListaPrenotazioni().stream().map(p -> p.getId()).collect(Collectors.toList())
+            : new ArrayList<>());
 
     return viaggioDTO;
   }

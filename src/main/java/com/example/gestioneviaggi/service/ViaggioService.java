@@ -2,9 +2,11 @@ package com.example.gestioneviaggi.service;
 
 import com.example.gestioneviaggi.dto.ViaggioDTO;
 import com.example.gestioneviaggi.enumration.TipoStato;
+import com.example.gestioneviaggi.exception.DuplicatePrenotazioneException;
 import com.example.gestioneviaggi.mapper.ViaggioMapper;
 import com.example.gestioneviaggi.model.Viaggio;
 import com.example.gestioneviaggi.repository.ViaggioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,14 +37,14 @@ public class ViaggioService {
     Viaggio viaggio =
         viaggioRepository
             .findById(id)
-            .orElseThrow(() -> new RuntimeException("Trip with id(" + id + ") not found!"));
+            .orElseThrow(() -> new EntityNotFoundException("Trip with id(" + id + ") not found!"));
     return viaggioMapper.toResponseDto(viaggio);
   }
 
   // POST NEW TRIP
   public ViaggioDTO createViaggio(@Valid ViaggioDTO dto) {
     if (viaggioRepository.existsByDestinazioneAndData(dto.getDestinazione(), dto.getData())) {
-      throw new IllegalArgumentException(
+      throw new DuplicatePrenotazioneException(
           "The trip with this destination in this date is already exist");
     }
     Viaggio viaggio = viaggioMapper.toEntity(dto);
@@ -55,7 +57,7 @@ public class ViaggioService {
     Viaggio viaggio =
         viaggioRepository
             .findById(id)
-            .orElseThrow(() -> new RuntimeException("Trip with id(" + id + ") not found!"));
+            .orElseThrow(() -> new EntityNotFoundException("Trip with id(" + id + ") not found!"));
     viaggio.setDestinazione(dto.getDestinazione());
     viaggio.setData(dto.getData());
     viaggio.setStato(dto.getStato());
@@ -66,7 +68,7 @@ public class ViaggioService {
   // DELETE TRIP BY ID
   public void deleteViaggio(Long id) {
     if (!viaggioRepository.existsById(id)) {
-      throw new RuntimeException("Trip with id(" + id + ") not found!");
+      throw new EntityNotFoundException("Trip with id(" + id + ") not found!");
     }
     viaggioRepository.deleteById(id);
   }
@@ -76,7 +78,7 @@ public class ViaggioService {
     Viaggio viaggio =
         viaggioRepository
             .findById(id)
-            .orElseThrow(() -> new RuntimeException("Trip with id(" + id + ") not found!"));
+            .orElseThrow(() -> new EntityNotFoundException("Trip with id(" + id + ") not found!"));
     viaggio.setStato(nuovoStato);
     viaggio = viaggioRepository.save(viaggio);
     return viaggioMapper.toResponseDto(viaggio);
